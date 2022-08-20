@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('all.category');
+Route::post('/category/add', [CategoryController::class, 'store'])->name('store.category');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
