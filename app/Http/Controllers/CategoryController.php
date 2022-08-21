@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     public function index(){
-      $categories = Category::latest()->get();
+      $categories = DB::Table('categories')->latest()->get();
 
       return view('admin.category.index', compact('categories'));
     }
