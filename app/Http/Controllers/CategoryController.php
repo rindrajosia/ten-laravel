@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     public function index(){
-      $categories = Category::latest()->paginate(2);
+      $categories = DB::Table('categories')
+                  ->join('users', 'categories.user_id', 'users.id')
+                  ->select('categories.*', 'users.name')
+                  ->latest()->paginate(2);
 
       return view('admin.category.index', compact('categories'));
     }
