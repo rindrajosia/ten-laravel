@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ Route::post('/category/update/{id}', [CategoryController::class, 'update']);
 Route::get('/category/softdelete/{id}', [CategoryController::class, 'softDelete']);
 Route::get('/category/restore/{id}', [CategoryController::class, 'restore']);
 Route::get('/category/remove/{id}', [CategoryController::class, 'remove']);
+
+/// for Brand
+Route::get('/brand/all', [BrandController::class, 'index'])->name('all.brand');
+Route::post('/brand/add', [BrandController::class, 'store'])->name('store.brand');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
