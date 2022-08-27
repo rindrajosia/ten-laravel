@@ -33,6 +33,8 @@ Route::get('/category/remove/{id}', [CategoryController::class, 'remove']);
 /// for Brand
 Route::get('/brand/all', [BrandController::class, 'index'])->name('all.brand');
 Route::post('/brand/add', [BrandController::class, 'store'])->name('store.brand');
+Route::get('/brand/edit/{id}', [BrandController::class, 'edit']);
+Route::post('/brand/update/{id}', [BrandController::class, 'update']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
