@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Carbon;
+use Image;
 
 class BrandController extends Controller
 {
@@ -33,7 +34,7 @@ class BrandController extends Controller
 
       $up_location = 'image/brand/';
 
-      $brand_image->move($up_location, $image_name);
+      Image::make($brand_image)->resize(300,200)->save($up_location.$image_name);
 
       Brand::insert([
         'brand_name' => $request->brand_name,
@@ -69,7 +70,7 @@ class BrandController extends Controller
 
         $up_location = 'image/brand/';
 
-        $brand_image->move($up_location, $image_name);
+        Image::make($brand_image)->resize(300,200)->save($up_location.$image_name);
 
         unlink($old_image);
 
@@ -95,7 +96,7 @@ class BrandController extends Controller
 
       $image = Brand::find($id);
       unlink($image->brand_image);
-      
+
       Brand::find($id)->delete();
 
       return Redirect()->back()->with('success', 'Brand deleted Successfull');
