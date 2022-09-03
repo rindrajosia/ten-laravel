@@ -43,6 +43,7 @@ Route::get('/multi/image', [MultiController::class, 'index'])->name('multi.image
 Route::post('/multi/add', [MultiController::class, 'store'])->name('store.image');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $users = User::all();
-    return view('dashboard', compact('users'));
+
+    return view('admin.index');
 })->name('dashboard');
+Route::get('/user/logout', [BrandController::class, 'logout'])->name('user.logout');
