@@ -18,7 +18,7 @@ use App\Http\Controllers\MultiController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('all.category');
