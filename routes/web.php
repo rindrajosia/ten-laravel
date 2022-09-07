@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MultiController;
+use App\Models\Brand;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use App\Http\Controllers\MultiController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $brands = Brand::all();
+    return view('home', compact('brands'));
 });
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('all.category');
