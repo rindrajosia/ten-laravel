@@ -8,6 +8,7 @@ use App\Http\Controllers\MultiController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AboutController;
 use App\Models\Brand;
+use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -24,7 +25,8 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     $brands = Brand::all();
     $about = DB::table('abouts')->first();
-    return view('home', compact('brands', 'about'));
+    $images = Multipic::all();
+    return view('home', compact('brands', 'about', 'images'));
 });
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('all.category');
@@ -63,6 +65,9 @@ Route::post('/store/about', [AboutController::class, 'store'])->name('store.abou
 Route::get('/edit/about/{id}', [AboutController::class, 'edit']);
 Route::post('/update/about/{id}', [AboutController::class, 'update']);
 Route::get('/delete/about/{id}', [AboutController::class, 'delete']);
+
+//
+Route::get('/portfolio', [MultiController::class, 'show'])->name('portfolio');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

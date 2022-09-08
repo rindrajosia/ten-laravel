@@ -12,10 +12,15 @@ class MultiController extends Controller
     public function __construct(){
       $this->middleware('auth');
     }
-    
+
     public function index(){
       $images = Multipic::all();
       return view('admin.multi.index', compact('images'));
+    }
+
+    public function show(){
+      $images = Multipic::all();
+      return view('layouts.pages.portfolio', compact('images'));
     }
 
     public function store(Request $request){
