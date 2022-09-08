@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MultiController;
+use App\Http\Controllers\HomeController;
 use App\Models\Brand;
 
 /*
@@ -43,6 +44,15 @@ Route::get('/brand/delete/{id}', [BrandController::class, 'delete']);
 /// Multi image
 Route::get('/multi/image', [MultiController::class, 'index'])->name('multi.image');
 Route::post('/multi/add', [MultiController::class, 'store'])->name('store.image');
+
+// Admin route
+Route::get('/home/slider', [HomeController::class, 'homeSlider'])->name('home.slider');
+Route::get('/add/slider', [HomeController::class, 'addSlider'])->name('add.slider');
+Route::post('/store/slider', [HomeController::class, 'storeSlider'])->name('store.slider');
+Route::get('/edit/slider/{id}', [HomeController::class, 'editSlider']);
+Route::post('/update/slider/{id}', [HomeController::class, 'updateSlider']);
+Route::get('/delete/slider/{id}', [HomeController::class, 'deleteSlider']);
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
