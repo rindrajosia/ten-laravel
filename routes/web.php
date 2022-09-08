@@ -5,8 +5,10 @@ use App\Models\User;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MultiController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\AboutController;
 use App\Models\Brand;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,8 @@ use App\Models\Brand;
 
 Route::get('/', function () {
     $brands = Brand::all();
-    return view('home', compact('brands'));
+    $about = DB::table('abouts')->first();
+    return view('home', compact('brands', 'about'));
 });
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('all.category');
@@ -46,12 +49,20 @@ Route::get('/multi/image', [MultiController::class, 'index'])->name('multi.image
 Route::post('/multi/add', [MultiController::class, 'store'])->name('store.image');
 
 // Admin route
-Route::get('/home/slider', [HomeController::class, 'homeSlider'])->name('home.slider');
-Route::get('/add/slider', [HomeController::class, 'addSlider'])->name('add.slider');
-Route::post('/store/slider', [HomeController::class, 'storeSlider'])->name('store.slider');
-Route::get('/edit/slider/{id}', [HomeController::class, 'editSlider']);
-Route::post('/update/slider/{id}', [HomeController::class, 'updateSlider']);
-Route::get('/delete/slider/{id}', [HomeController::class, 'deleteSlider']);
+Route::get('/home/slider', [SliderController::class, 'index'])->name('home.slider');
+Route::get('/add/slider', [SliderController::class, 'create'])->name('add.slider');
+Route::post('/store/slider', [SliderController::class, 'store'])->name('store.slider');
+Route::get('/edit/slider/{id}', [SliderController::class, 'edit']);
+Route::post('/update/slider/{id}', [SliderController::class, 'update']);
+Route::get('/delete/slider/{id}', [SliderController::class, 'delete']);
+
+//
+Route::get('/home/about', [AboutController::class, 'index'])->name('home.about');
+Route::get('/add/about', [AboutController::class, 'create'])->name('add.about');
+Route::post('/store/about', [AboutController::class, 'store'])->name('store.about');
+Route::get('/edit/about/{id}', [AboutController::class, 'edit']);
+Route::post('/update/about/{id}', [AboutController::class, 'update']);
+Route::get('/delete/about/{id}', [AboutController::class, 'delete']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

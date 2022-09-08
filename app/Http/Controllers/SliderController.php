@@ -6,19 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Slider;
 use Illuminate\Support\Carbon;
 use Image;
+use Auth;
 
-class HomeController extends Controller
+class SliderController extends Controller
 {
-    public function homeSlider(){
+    public function __construct(){
+      $this->middleware('auth');
+    }
+
+    public function index(){
       $sliders = Slider::latest()->get();
       return view('admin.slider.index', compact('sliders'));
     }
 
-    public function addSlider(){
+    public function create(){
       return view('admin.slider.create');
     }
 
-    public function storeSlider(Request $request){
+    public function store(Request $request){
       $validated = $request->validate([
         'title' => 'required|unique:sliders|min:4',
         'description' => 'required|min:10',
@@ -47,12 +52,12 @@ class HomeController extends Controller
       return Redirect()->route('home.slider')->with('success', 'Slide Inserted Successfull');
     }
 
-    public function editSlider($id){
+    public function edit($id){
       $slide = Slider::find($id);
       return view('admin.slider.edit', compact('slide'));
     }
 
-    public function updateSlider(Request $request, $id){
+    public function update(Request $request, $id){
       $validated = $request->validate([
         'title' => 'required|min:4',
         'description' => 'required|min:10',
@@ -89,7 +94,7 @@ class HomeController extends Controller
       return Redirect()->route('home.slider')->with('success', 'Slide Updated Successfull');
     }
 
-    public function deleteSlider($id){
+    public function delete($id){
       $image = Slider::find($id);
       unlink($image->image);
 
