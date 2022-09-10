@@ -12,7 +12,7 @@
         @csrf
         <div class="form-group">
           <label for="exampleFormControlInput1">Title</label>
-          <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter Title">
+          <input type="text" value="{{ old('title') }}" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Enter Title">
           @error('title')
               <span class="text-danger"> {{ $message }} </span>
           @enderror
@@ -20,14 +20,14 @@
 
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Short description</label>
-          <textarea name="short_description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea name="short_description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('short_description') }}</textarea>
           @error('short_description')
               <span class="text-danger"> {{ $message }} </span>
           @enderror
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Long description</label>
-          <textarea name="long_description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea name="long_description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ old('long_description') }}</textarea>
           @error('long_description')
               <span class="text-danger"> {{ $message }} </span>
           @enderror

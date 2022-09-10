@@ -7,6 +7,8 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MultiController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MessageController;
 use App\Models\Brand;
 use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
@@ -66,8 +68,27 @@ Route::get('/edit/about/{id}', [AboutController::class, 'edit']);
 Route::post('/update/about/{id}', [AboutController::class, 'update']);
 Route::get('/delete/about/{id}', [AboutController::class, 'delete']);
 
-//
+//front portfolio
 Route::get('/portfolio', [MultiController::class, 'show'])->name('portfolio');
+
+//
+Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact');
+Route::get('/add/contact', [ContactController::class, 'create'])->name('add.contact');
+Route::post('/store/contact', [ContactController::class, 'store'])->name('store.contact');
+Route::get('/edit/contact/{id}', [ContactController::class, 'edit']);
+Route::post('/update/contact/{id}', [ContactController::class, 'update']);
+Route::get('/delete/contact/{id}', [ContactController::class, 'delete']);
+
+//front contact
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+
+
+//
+Route::get('/admin/message', [MessageController::class, 'index'])->name('admin.message');
+Route::get('/delete/message/{id}', [MessageController::class, 'delete']);
+
+//front contact
+Route::post('/message', [ContactController::class, 'store'])->name('store.contact');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

@@ -61,7 +61,7 @@
                       @csrf
                       <div class="form-group">
                         <label for="exampleInputEmail1">Brand Name</label>
-                        <input type="text" name="brand_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" name="brand_name" value="{{ old('brand_name') }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             @error('brand_name')
                                 <span class="text-danger"> {{ $message }} </span>
                             @enderror
