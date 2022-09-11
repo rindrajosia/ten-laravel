@@ -15,7 +15,11 @@ class ChangeProfileController extends Controller
         }
       }
       Auth::logout();
-      return Redirect()->route('login');
+      $notification = [
+        'message' => 'Please logged in',
+        'alert-type' => 'error'
+      ];
+      return Redirect()->route('login')->with($notification);
     }
 
     public function update(Request $request){
@@ -24,9 +28,17 @@ class ChangeProfileController extends Controller
         $user->email = $request->email;
         $user->name = $request->name;
         $user->save();
-        return Redirect()->back()->with('success', 'Profile updated Successfull');
+        $notification = [
+          'message' => 'Profile updated Successfully',
+          'alert-type' => 'success'
+        ];
+        return Redirect()->back()->with($notification);
       }else{
-        return Redirect()->back();
+        $notification = [
+          'message' => 'Profile was not updated',
+          'alert-type' => 'warning'
+        ];
+        return Redirect()->back()->with($notification);
       }
 
     }

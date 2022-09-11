@@ -26,9 +26,17 @@ class ChangePasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         Auth::logout();
-        return Redirect()->route('login')->with('success', 'Password updated Successfull');
+        $notification = [
+          'message' => 'Password updated Successfully',
+          'alert-type' => 'success'
+        ];
+        return Redirect()->route('login')->with($notification);
       }else{
-        return Redirect()->back()->with('error', 'Current Password is Invalid');
+        $notification = [
+          'message' => 'Current Password is Invalid',
+          'alert-type' => 'error'
+        ];
+        return Redirect()->back()->with($notification);
       }
 
     }

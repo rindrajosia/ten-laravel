@@ -38,7 +38,12 @@ class ContactController extends Controller
         'created_at' => Carbon::now()
       ]);
 
-      return Redirect()->route('admin.contact')->with('success', 'Contact Inserted Successfull');
+      $notification = [
+        'message' => 'Contact Inserted Successfully',
+        'alert-type' => 'success'
+      ];
+
+      return Redirect()->route('admin.contact')->with($notification);
     }
 
     public function edit($id){
@@ -59,12 +64,21 @@ class ContactController extends Controller
         'address' => $request->address,
       ]);
 
-      return Redirect()->route('admin.contact')->with('success', 'Contact Updated Successfull');
+      $notification = [
+        'message' => 'Contact Updated Successfully',
+        'alert-type' => 'info'
+      ];
+
+      return Redirect()->route('admin.contact')->with($notification);
     }
 
     public function delete($id){
       Contact::find($id)->delete();
-      return Redirect()->route('admin.contact')->with('success', 'Contact removed Successfull');
+      $notification = [
+        'message' => 'Contact removed Successfully',
+        'alert-type' => 'warning'
+      ];
+      return Redirect()->route('admin.contact')->with->with($notification);
     }
 
 }

@@ -41,6 +41,11 @@ class MultiController extends Controller
           'created_at' => Carbon::now()
         ]);
       }
-      return Redirect()->back()->with('success', 'Multiple images Inserted Successfull');
+
+      $notification = [
+        'message' => 'Multiple images Inserted Successfully',
+        'alert-type' => 'success'
+      ];
+      return Redirect()->back()->with($notification);
     }
 }

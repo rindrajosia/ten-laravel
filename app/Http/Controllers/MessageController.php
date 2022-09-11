@@ -21,11 +21,20 @@ class MessageController extends Controller
         'created_at' => Carbon::now()
       ]);
 
-      return Redirect()->route('contact')->with('success', 'Message sent Successfull');
+      $notification = [
+        'message' => 'Message sent Successfully',
+        'alert-type' => 'success'
+      ];
+
+      return Redirect()->route('contact')->with($notification);
     }
 
     public function delete($id){
       ContactForm::find($id)->delete();
-      return Redirect()->route('admin.message')->with('success', 'Message removed Successfull');
+      $notification = [
+        'message' => 'Message removed Successfully',
+        'alert-type' => 'warning'
+      ];
+      return Redirect()->route('admin.message')->with($notification);
     }
 }

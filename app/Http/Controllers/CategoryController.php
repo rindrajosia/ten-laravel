@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function __construct(){
       $this->middleware('auth');
     }
-    
+
     public function index(){
 
       $categories = Category::latest()->paginate(2);
@@ -36,7 +36,12 @@ class CategoryController extends Controller
         'created_at' => Carbon::now()
       ]);
 
-      return Redirect()->back()->with('success', 'Category Inserted Successfull');
+      $notification = [
+        'message' => 'Category Inserted Successfully',
+        'alert-type' => 'success'
+      ];
+
+      return Redirect()->back()->with($notification);
     }
 
     public function edit($id){
@@ -49,24 +54,40 @@ class CategoryController extends Controller
         'category_name' => $request->category_name,
         'user_id' => Auth::user()->id,
       ]);
-      return Redirect()->route('all.category')->with('success', 'Category Updated Successfull');
+      $notification = [
+        'message' => 'Category Updated Successfully',
+        'alert-type' => 'info'
+      ];
+      return Redirect()->route('all.category')->with($notification);
     }
 
     public function softDelete($id){
       $delete = Category::find($id)->delete();
-      return Redirect()->back()->with('success', 'Category Soft Deleted Successfull');
+      $notification = [
+        'message' => 'Category Soft Deleted Successfully',
+        'alert-type' => 'warning'
+      ];
+      return Redirect()->back()->with($notification);
 
     }
 
     public function restore($id){
       $delete = Category::withTrashed()->find($id)->restore();
-      return Redirect()->back()->with('success', 'Category restored Successfull');
+      $notification = [
+        'message' => 'Category restored Successfully',
+        'alert-type' => 'info'
+      ];
+      return Redirect()->back()->with($notification);
 
     }
 
     public function remove($id){
       $delete = Category::onlyTrashed()->find($id)->forceDelete();
-      return Redirect()->back()->with('success', 'Category Permanantly removed');
+      $notification = [
+        'message' => 'Category Permanantly removed',
+        'alert-type' => 'warning'
+      ];
+      return Redirect()->back()->with($notification);
 
     }
 }

@@ -47,7 +47,12 @@ class BrandController extends Controller
         'created_at' => Carbon::now()
       ]);
 
-      return Redirect()->back()->with('success', 'Brand Inserted Successfull');
+      $notification = [
+        'message' => 'Brand Inserted Successfully',
+        'alert-type' => 'success'
+      ];
+
+      return Redirect()->back()->with($notification);
     }
 
     public function edit($id){
@@ -91,9 +96,12 @@ class BrandController extends Controller
         ]);
       }
 
+      $notification = [
+        'message' => 'Brand Updated Successfully',
+        'alert-type' => 'info'
+      ];
 
-
-      return Redirect()->route('all.brand')->with('success', 'Brand Updated Successfull');
+      return Redirect()->route('all.brand')->with($notification);
 
     }
 
@@ -104,12 +112,21 @@ class BrandController extends Controller
 
       Brand::find($id)->delete();
 
-      return Redirect()->back()->with('success', 'Brand deleted Successfull');
+      $notification = [
+        'message' => 'Brand removed Successfully',
+        'alert-type' => 'warning'
+      ];
+
+      return Redirect()->back()->with($notification);
 
     }
 
     public function logout(){
       Auth::logout();
-      return Redirect()->route('login')->with('success', 'Logout Successfull');
+      $notification = [
+        'message' => 'Logout Successfully',
+        'alert-type' => 'success'
+      ];
+      return Redirect()->route('login')->with($notification);
     }
 }

@@ -48,8 +48,11 @@ class SliderController extends Controller
         'image' => $up_location.$image_name,
         'created_at' => Carbon::now()
       ]);
-
-      return Redirect()->route('home.slider')->with('success', 'Slide Inserted Successfull');
+      $notification = [
+        'message' => 'Slide Inserted Successfully',
+        'alert-type' => 'success'
+      ];
+      return Redirect()->route('home.slider')->with($notification);
     }
 
     public function edit($id){
@@ -91,7 +94,12 @@ class SliderController extends Controller
           'description' => $request->description,
         ]);
       }
-      return Redirect()->route('home.slider')->with('success', 'Slide Updated Successfull');
+
+      $notification = [
+        'message' => 'Slide Updated Successfully',
+        'alert-type' => 'info'
+      ];
+      return Redirect()->route('home.slider')->with($notification);
     }
 
     public function delete($id){
@@ -99,7 +107,10 @@ class SliderController extends Controller
       unlink($image->image);
 
       Slider::find($id)->delete();
-
-      return Redirect()->back()->with('success', 'Slide deleted Successfull');
+      $notification = [
+        'message' => 'Slide removed Successfully',
+        'alert-type' => 'warning'
+      ];
+      return Redirect()->back()->with($notification);
     }
 }
