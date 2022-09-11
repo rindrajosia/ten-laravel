@@ -10,6 +10,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\ChangeProfileController;
 use App\Models\Brand;
 use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
@@ -100,5 +101,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/user/logout', [BrandController::class, 'logout'])->name('user.logout');
 
-Route::get('/user/password', [ChangePasswordController::class, 'changePassword'])->name('change.password');
+Route::get('/user/password', [ChangePasswordController::class, 'index'])->name('change.password');
 Route::post('/password/update', [ChangePasswordController::class, 'update'])->name('update.password');
+
+Route::get('/user/profile', [ChangeProfileController::class, 'index'])->name('change.profile');
+Route::post('/profile/update', [ChangeProfileController::class, 'update'])->name('update.profile');

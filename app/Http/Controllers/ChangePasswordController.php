@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordController extends Controller
 {
-    public function changePassword(){
+    public function index(){
       return view('admin.body.change_password');
     }
 
