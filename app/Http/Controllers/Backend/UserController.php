@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Auth;
 
@@ -18,18 +19,18 @@ class UserController extends Controller
       return view('backend.users.create');
     }
 
-    public function store(Request $requet){
-      $validate = $requet->validate([
+    public function store(Request $request){
+      $validate = $request->validate([
         "email" => 'required|unique:users',
         "name" => 'required',
         "role" => 'required',
       ]);
 
       $data = new User();
-      $data->role = $requet->role;
-      $data->email = $requet->email;
-      $data->name = $requet->name;
-      $data->password = bcrypt($requet->password);
+      $data->role = $request->role;
+      $data->email = $request->email;
+      $data->name = $request->name;
+      $data->password = Hash::make($request->password);
       $data->save();
 
       $notification = [
@@ -45,17 +46,17 @@ class UserController extends Controller
       return view('backend.users.edit', compact('user'));
     }
 
-    public function update(Request $requet, $id){
-      $validate = $requet->validate([
+    public function update(Request $request, $id){
+      $validate = $request->validate([
         "email" => 'required|email|unique:users,email,'.$id,
         "name" => 'required',
         "role" => 'required',
       ]);
 
       $user = User::find($id)->update([
-        'role' => $requet->role,
-        'email' => $requet->email,
-        'name' => $requet->name,
+        'role' => $request->role,
+        'email' => $request->email,
+        'name' => $request->name,
       ]);
 
 
